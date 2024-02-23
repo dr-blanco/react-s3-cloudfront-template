@@ -1,0 +1,120 @@
+.App {
+  text-align: center;
+  align-items: center;
+  position: relative;
+}
+
+.App-logo {
+  /*lbackground: rgba(255, 255, 255, 0.9); /* Solid background for logo */
+  /*border-radius: 50%; /* Circular border */
+  padding: 10px; /* Padding around the logo */
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+  /* Keep the rest of your styles */
+}
+
+
+
+.App-header {
+  /*background-color: #282c34;*/
+  position: relative;
+  width: 100%; /* Adjust the width as needed */
+  max-height: 10%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: rgb(5, 5, 5);
+}
+
+.App-header video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.carousel-item img {
+  width: 100%; /* Ensures the image is as wide as the container */
+  height: 400px; /* Limits the height of the image */
+  object-fit: cover; /* Ensures the image covers the area, cropping it if necessary */
+}
+
+
+.video-card {
+  margin-top: 2%;
+  margin-bottom: 2%;
+  opacity: 80%;
+  z-index: 1;
+  /*background: url('./leaf-background.png') center center;*/
+  background-size: cover;
+  position: relative;
+}
+
+.video-card::before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.8);
+  z-index: -1;
+}
+
+
+
+.App-header {
+  font-family: 'Lora', serif; /* Example of a more elegant font */
+  /* Continue with your existing styles */
+}
+
+.Card {
+  border-radius: 15px; /* Smooth edges for a softer look */
+  /* Continue with your existing styles */
+}
+
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.tea-product{
+  margin-top: 3%;
+  margin-bottom: 3%;
+}
+
+
+.footer{
+  background-color: rgba(141, 211, 144, 0.404);
+  padding-top: 2%;
+}
+
+
+.carousel-caption {
+  /* Change text color if necessary */
+  /* Semi-transparent background */
+  background-color: rgba(206, 206, 206, 0.75); /* Light semi-transparent background */
+  padding: 10px;
+  border-radius: 5px; /* Optional: for rounded corners */
+}
+
+.privacy-policy p {
+  white-space: pre-wrap; /* Allows text to wrap and preserves whitespace */
+}
+
+
+

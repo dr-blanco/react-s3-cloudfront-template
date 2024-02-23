@@ -1,0 +1,59 @@
+name: Deploy React App to S3
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '18'  # Using Node.js 16
+
+    - name: Check if 'app' directory exists
+      id: check-app
+      run: |
+        if [ -d "app" ] && [ "$(ls -A app)" ]; then
+          echo "App directory exists and is not empty"
+          echo "##[set-output name=exists;]true"
+        else
+          echo "App directory does not exist or is empty"
+          echo "##[set-output name=exists;]false"
+        fi
+
+    - name: Create React App if 'app' is empty
+      if: steps.check-app.outputs.exists == 'false'
+      run: |
+        npx create-react-app@latest app
+
+    - name: Install Dependencies
+      run: npm install --prefix app
+
+    - name: Build
+      run: npm run build --prefix app
+
+    - name: List build directory contents
+      run: ls -alh ${{ github.workspace }}/app/build
+
+    - name: Clear S3 Bucket
+      run: |
+        aws s3 rm s3://${{ secrets.AWS_S3_BUCKET }} --recursive
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_REGION: 'us-east-1'
+    
+    - name: Deploy to S3 using AWS CLI
+      run: |
+        aws s3 sync ${{ github.workspace }}/app/build s3://${{ secrets.AWS_S3_BUCKET }} --delete
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_REGION: 'us-east-1'
